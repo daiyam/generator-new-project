@@ -1,0 +1,8 @@
+{
+	"extends": "../tsconfig.base.json",
+	"compilerOptions": {
+		/* Basic Options */
+		"outDir": "../generators",						/* Specify an output folder for all emitted files. */
+		"rootDir": ".",									/* Specify the root directory of input files. */
+	},
+}

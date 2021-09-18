@@ -1,0 +1,10 @@
+{
+	"taskExplorer.exclude": [
+		".husky",
+	],
+	"search.exclude": {
+		"lib/**": true,
+		"yarn.lock": true,
+		".test/**": true,
+	},
+}
