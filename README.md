@@ -14,7 +14,7 @@ Getting Started
 
 With [node](https://nodejs.org) and [yeoman](https://yeoman.io) previously installed:
 
-	npm install @daiyam/generator-new-project
+	npm install -g @daiyam/generator-new-project
 
     yo @daiyam/new-project --cwd=~/my-projects
 
