@@ -5,6 +5,7 @@ import Generator from 'yeoman-generator';
 interface Answers {
 	cwd: string;
 	author?: boolean;
+	bundler?: string;
 	component: string;
 	editor?: boolean;
 	language: string;
@@ -80,12 +81,18 @@ export default class NewProjectGenerator extends Generator {
 					name: 'test',
 					message: 'Add unit testing?',
 				},
+				{
+					type: 'list',
+					name: 'bundler',
+					message: 'Pick the bundler to use',
+					choices: ['skip', 'ncc', 'webpack'],
+				},
 				EDITOR && {
 					type: 'confirm',
 					name: 'editor',
 					message: 'Open editor?',
 				},
-			]) as { test: boolean; editor: boolean | undefined };
+			]) as { test: boolean; bundler: string; editor: boolean | undefined };
 
 			this.answers = {
 				...response1,
@@ -159,6 +166,13 @@ export default class NewProjectGenerator extends Generator {
 
 				if(this.answers!.author) {
 					this.artifacts.push('@daiyam/vsx-zokugun');
+				}
+
+				if(this.answers!.bundler === 'ncc') {
+					this.artifacts.push('@daiyam/vsx-bundle-ncc');
+				}
+				else if(this.answers!.bundler === 'webpack') {
+					this.artifacts.push('@daiyam/vsx-bundle-webpack');
 				}
 
 				if(this.answers!.test) {

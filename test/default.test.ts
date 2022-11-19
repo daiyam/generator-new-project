@@ -17,6 +17,7 @@ describe('default', () => {
 		void context.withPrompts({
 			name: 'my-vsx-project',
 			component: 'vsx',
+			bundler: 'webpack',
 			test: false,
 			editor: false,
 		});
@@ -29,6 +30,7 @@ describe('default', () => {
 			'my-vsx-project/src/extension.ts',
 			'my-vsx-project/node_modules',
 			'my-vsx-project/package-lock.json',
+			'my-vsx-project/webpack.config.js',
 		]);
 
 		assert.jsonFileContent('my-vsx-project/package.json', {
