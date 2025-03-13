@@ -6,5 +6,6 @@
 		"lib/**": true,
 		"yarn.lock": true,
 		".test/**": true,
+		"package-lock.json": true,
 	},
 }

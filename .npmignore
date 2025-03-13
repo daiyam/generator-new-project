@@ -4,5 +4,5 @@
 !package.json
 !LICENSE
 !README.md
-!generators/**/*.js
-!generators/**/*.d.ts
+!lib/**/*.js
+!lib/**/*.d.ts

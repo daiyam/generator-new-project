@@ -1,28 +1,18 @@
+import path from 'node:path';
 import assert from 'yeoman-assert';
 import helpers from 'yeoman-test';
-import NewProjectGenerator from '../src';
 
 describe('default', () => {
 	it('vsx-project', async () => { // {{{
-		const context = helpers.create(NewProjectGenerator);
-
-		const cwd: string = await new Promise((resolve) => {
-			void context.inTmpDir(resolve);
-		});
-
-		void context.withOptions({
-			cwd,
-		});
-
-		void context.withPrompts({
-			name: 'my-vsx-project',
-			component: 'vsx',
-			bundler: 'webpack',
-			test: false,
-			editor: false,
-		});
-
-		await context.run();
+		await helpers
+			.run(path.join(__dirname, '../src'))
+			.withPrompts({
+				name: 'my-vsx-project',
+				component: 'vsx',
+				bundler: 'webpack',
+				test: false,
+				editor: false,
+			});
 
 		assert.file([
 			'my-vsx-project/.git',

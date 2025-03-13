@@ -1,8 +1,8 @@
-import path from 'path';
-import process from 'process';
-import Generator from 'yeoman-generator';
+import path from 'node:path';
+import process from 'node:process';
+import Generator, { type BaseOptions, type PromptQuestions } from 'yeoman-generator';
 
-interface Answers {
+type Answers = {
 	cwd: string;
 	author?: boolean;
 	bundler?: string;
@@ -13,15 +13,15 @@ interface Answers {
 	name: string;
 	test: boolean;
 	remove?: boolean;
-}
+};
 
 const EDITOR = process.env.EDITOR;
 
-export default class NewProjectGenerator extends Generator {
-	private readonly artifacts = ['@daiyam/base'];
+export default class NewProjectGenerator extends Generator<BaseOptions & Answers> {
+	private readonly artifacts = ['@daiyam/lang-js'];
 	private answers?: Answers;
 
-	constructor(args, options) { // {{{
+	constructor(args, options: BaseOptions & Answers) { // {{{
 		super(args, options);
 
 		this.option('cwd', {
@@ -31,12 +31,12 @@ export default class NewProjectGenerator extends Generator {
 	} // }}}
 
 	public async prompting() { // {{{
-		const response1 = await this.prompt([
+		const response1 = await this.prompt<{ cwd: string; name: string; component: string }>([
 			{
 				type: 'input',
 				name: 'cwd',
 				message: 'Where to?',
-				default: this.options.cwd as string ?? '',
+				default: this.options.cwd ?? '',
 			},
 			{
 				type: 'input',
@@ -50,21 +50,26 @@ export default class NewProjectGenerator extends Generator {
 				message: 'Pick the type of the project',
 				choices: ['npm', 'vsx', 'skip'],
 			},
-		]) as { cwd: string; name: string; component: string };
+		]);
 
 		if(response1.component === 'npm') {
-			const response2 = await this.prompt([
+			const question2: PromptQuestions<{ test: boolean; editor: boolean | undefined }> = [
 				{
 					type: 'confirm',
 					name: 'test',
 					message: 'Add unit testing?',
 				},
-				EDITOR && {
+			];
+
+			if(EDITOR) {
+				question2.push({
 					type: 'confirm',
 					name: 'editor',
 					message: 'Open editor?',
-				},
-			]) as { test: boolean; editor: boolean | undefined };
+				});
+			}
+
+			const response2 = await this.prompt(question2);
 
 			this.answers = {
 				...response1,
@@ -75,7 +80,7 @@ export default class NewProjectGenerator extends Generator {
 			};
 		}
 		else if(response1.component === 'vsx') {
-			const response2 = await this.prompt([
+			const question2: PromptQuestions<{ test: boolean; bundler: string; editor: boolean | undefined }> = [
 				{
 					type: 'confirm',
 					name: 'test',
@@ -87,12 +92,17 @@ export default class NewProjectGenerator extends Generator {
 					message: 'Pick the bundler to use',
 					choices: ['skip', 'ncc', 'webpack'],
 				},
-				EDITOR && {
+			];
+
+			if(EDITOR) {
+				question2.push({
 					type: 'confirm',
 					name: 'editor',
 					message: 'Open editor?',
-				},
-			]) as { test: boolean; bundler: string; editor: boolean | undefined };
+				});
+			}
+
+			const response2 = await this.prompt(question2);
 
 			this.answers = {
 				...response1,
@@ -103,7 +113,7 @@ export default class NewProjectGenerator extends Generator {
 			};
 		}
 		else {
-			const response2 = await this.prompt([
+			const question2: PromptQuestions<{ language: string; test: boolean; manager: string; editor: boolean | undefined }> = [
 				{
 					type: 'list',
 					name: 'language',
@@ -121,12 +131,17 @@ export default class NewProjectGenerator extends Generator {
 					message: 'Pick the package manager',
 					choices: ['npm', 'yarn'],
 				},
-				EDITOR && {
+			];
+
+			if(EDITOR) {
+				question2.push({
 					type: 'confirm',
 					name: 'editor',
 					message: 'Open editor?',
-				},
-			]) as { language: string; test: boolean; manager: string; editor: boolean | undefined };
+				});
+			}
+
+			const response2 = await this.prompt(question2);
 
 			this.answers = { ...response1, ...response2 };
 		}
@@ -134,11 +149,13 @@ export default class NewProjectGenerator extends Generator {
 		const root = path.join(this.answers.cwd, this.answers.name);
 
 		if(this.fs.exists(root)) {
-			this.answers.remove = await this.prompt({
+			const response3 = await this.prompt({
 				type: 'confirm',
 				name: 'remove',
 				message: 'The project is already existing. Should it be trashed?',
 			});
+
+			this.answers = { ...this.answers, ...response3 };
 		}
 	} // }}}
 
@@ -196,7 +213,7 @@ export default class NewProjectGenerator extends Generator {
 
 	public end() { // {{{
 		if(this.answers!.editor) {
-			this.spawnCommand(EDITOR!, ['.']);
+			void this.spawnCommand(EDITOR!, ['.']);
 		}
 	} // }}}
 

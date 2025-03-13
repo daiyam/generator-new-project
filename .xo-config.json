@@ -6,6 +6,7 @@
 		"test/fixtures"
 	],
 	"rules": {
+		"@typescript-eslint/ban-types": "off",
 		"@typescript-eslint/brace-style": [
 			"error",
 			"stroustrup"
@@ -31,6 +32,18 @@
 						"after": false
 					}
 				}
+			}
+		],
+		"@typescript-eslint/member-ordering": [
+			"error",
+			{
+				"default": [
+					"field",
+					"constructor",
+					"get",
+					"set",
+					"method"
+				]
 			}
 		],
 		"@typescript-eslint/naming-convention": [
@@ -108,6 +121,16 @@
 		],
 		"unicorn/empty-brace-spaces": "off",
 		"unicorn/no-array-callback-reference": "off",
+		"unicorn/no-object-as-default-parameter": "off",
+		"unicorn/prevent-abbreviations": [
+			"error",
+			{
+				"replacements": {
+					"args": false
+				}
+			}
+		],
+		"unicorn/prefer-json-parse-buffer": "off",
 		"unicorn/prefer-module": "off",
 		"unicorn/prefer-node-protocol": "off",
 		"unicorn/prefer-switch": "off",

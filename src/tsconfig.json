@@ -2,7 +2,16 @@
 	"extends": "../tsconfig.base.json",
 	"compilerOptions": {
 		/* Basic Options */
-		"outDir": "../generators",						/* Specify an output folder for all emitted files. */
+		"outDir": "../lib",						/* Specify an output folder for all emitted files. */
 		"rootDir": ".",									/* Specify the root directory of input files. */
+		"declaration": true,							/* Generates corresponding '.d.ts' file. */
+
+		/* Module Resolution Options */
+		"resolveJsonModule": true,						/* Enable importing .json files */
 	},
+	"references": [
+		{
+			"path": ".."
+		}
+	],
 }
