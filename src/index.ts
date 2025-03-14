@@ -76,7 +76,7 @@ export default class NewProjectGenerator extends Generator<BaseOptions & Answers
 				...response2,
 				language: 'typescript',
 				author: true,
-				manager: 'yarn',
+				manager: 'npm',
 			};
 		}
 		else if(response1.component === 'vsx') {
