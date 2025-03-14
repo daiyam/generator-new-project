@@ -15,7 +15,13 @@
 	"bugs": {
 		"url": "https://github.com/daiyam/generator-new-project/issues"
 	},
-	"main": "generators/index.js",
+	"type": "module",
+	"exports": {
+		".": {
+			"default": "./generators/index.js"
+		}
+	},
+	"main": "./generators/index.js",
 	"scripts": {
 		"commit": "cz",
 		"compile": "tsc -p src",

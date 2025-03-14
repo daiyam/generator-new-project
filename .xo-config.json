@@ -122,6 +122,11 @@
 		"unicorn/empty-brace-spaces": "off",
 		"unicorn/no-array-callback-reference": "off",
 		"unicorn/no-object-as-default-parameter": "off",
+		"unicorn/prefer-json-parse-buffer": "off",
+		"unicorn/prefer-module": "off",
+		"unicorn/prefer-node-protocol": "off",
+		"unicorn/prefer-switch": "off",
+		"unicorn/prefer-ternary": "off",
 		"unicorn/prevent-abbreviations": [
 			"error",
 			{
@@ -129,12 +134,7 @@
 					"args": false
 				}
 			}
-		],
-		"unicorn/prefer-json-parse-buffer": "off",
-		"unicorn/prefer-module": "off",
-		"unicorn/prefer-node-protocol": "off",
-		"unicorn/prefer-switch": "off",
-		"unicorn/prefer-ternary": "off"
+		]
 	},
 	"plugins": [
 		"chai-friendly"

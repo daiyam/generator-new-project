@@ -5,7 +5,7 @@ import helpers from 'yeoman-test';
 describe('default', () => {
 	it('vsx-project', async () => { // {{{
 		await helpers
-			.run(path.join(__dirname, '../src'))
+			.run(path.join(import.meta.dirname, '..', '..'))
 			.withPrompts({
 				name: 'my-vsx-project',
 				component: 'vsx',
