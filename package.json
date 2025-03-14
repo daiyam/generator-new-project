@@ -1,7 +1,7 @@
 {
 	"name": "@daiyam/generator-new-project",
 	"description": "A generator to boilerplate my projects with my artifact configs",
-	"version": "0.3.1",
+	"version": "0.3.2",
 	"author": {
 		"name": "Baptiste Augrain",
 		"email": "daiyam@zokugun.org"
