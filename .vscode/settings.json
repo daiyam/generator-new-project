@@ -3,7 +3,7 @@
 		".husky",
 	],
 	"search.exclude": {
-		"lib/**": true,
+		"generators/**": true,
 		"yarn.lock": true,
 		".test/**": true,
 		"package-lock.json": true,
